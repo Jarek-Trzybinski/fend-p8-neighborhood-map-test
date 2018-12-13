@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap } from 'react-google-maps';
 class Map extends Component {
+    state = {
+
+    }
+
+  
+
    render() {
    const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
