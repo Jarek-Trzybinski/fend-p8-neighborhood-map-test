@@ -7,13 +7,15 @@ class App extends Component {
   state = {
     places: []
   }
+
   componentDidMount() {
     this.getPlaces()
   }
+
   // code base on code from https://developer.foursquare.com/docs/api
   getPlaces = () => {
-    // get 50 places from Edinburgh
-    fetch('https://api.foursquare.com/v2/venues/explore?client_id=OGJ2WWKTOHB0PARLTNR4WTUBLSETYALE10WNXGTL33P2BNAW&client_secret=4LB1EELLF4CDIOSBLJMALSBORN0XAGO22CXYTH0KFJES3UTF&v=20180323&limit=50&near=Edinburgh&query=top+picks')
+    // get 20 places from Edinburghls
+    fetch('https://api.foursquare.com/v2/venues/explore?client_id=OGJ2WWKTOHB0PARLTNR4WTUBLSETYALE10WNXGTL33P2BNAW&client_secret=4LB1EELLF4CDIOSBLJMALSBORN0XAGO22CXYTH0KFJES3UTF&v=20180323&limit=20&near=Edinburgh&query=top+picks')
     .then(
       // save as json format
       resp => resp.json()
@@ -39,11 +41,23 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Welcome to Edinburgh</h1>
         </header>
+
         <main className="Main">
-          <nav className="App-nav">List of Places:</nav>
-          <section className="App-map"><Map/></section>
+          <nav className="App-nav">
           
+          List of Places:
+          {this.state.places.map(place=>{
+            return <li>{place.venue.name}</li>
+          })}
+          
+          </nav>
+          <section className="App-map">
+            <Map
+              places={this.state.places}
+            />
+          </section>
         </main>
+        
         <footer className="App-footer">this is part of Nanodegree Project</footer>
         
       </div>
