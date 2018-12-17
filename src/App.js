@@ -3,13 +3,33 @@ import logo from './logo.svg';
 import './App.css';
 import Map from './components/Map.js'
 class App extends Component {
+  constructor(){
+    super();
 
-  state = {
-    places: []
+  this.state = {
+    places: [], //foursquere places
+    //marker: name, id, location, isShow:false, isOpen:true
+    /* ustawic w marker.isShow& i co ma robic dla pokazanych markerow
+    i marker.isOpen && jezeli chcemy zeby po kliknieciu bylo wyswietlna
+    funcja on click zeby zmienic stane isOpen z false na true*/
+    markers: []
+  };
+  
   }
+ 
+
+  openInfoWindow = (marker)=> {
+    marker.isOpen = true;
+    this.setState({markers: Object.assign(this.state.markers, marker)})
+
+}
+
+
+
 
   componentDidMount() {
-    this.getPlaces()
+    this.getPlaces();
+    
   }
 
   // code base on code from https://developer.foursquare.com/docs/api
@@ -24,16 +44,35 @@ class App extends Component {
         
         console.log(data);
         // pass data into state
-        this.setState({
-          places: data.response.groups[0].items
-        });
+        
         console.log('this.state.places:',this.state.places)
+        const places = data.response.groups[0].items;
+
+        const markers = data.response.groups[0].items.map( marker => {
+          return {
+            id: marker.venue.id,
+            name: marker.venue.name,
+            lat: marker.venue.location.lat,
+            lng: marker.venue.location.lng,
+            address: marker.venue.location.address,
+            isShow: true,
+            isOpen: false
+          }
+        })
+        this.setState({places, markers});
+
+        
+
 
     }).catch(
       err => console.log('Error', err)
     );
     
-}
+    
+      }
+
+
+      
   render() {
     return (
       
@@ -46,14 +85,19 @@ class App extends Component {
           <nav className="App-nav">
           
           List of Places:
-          {this.state.places.map(place=>{
-            return <li>{place.venue.name}</li>
+          <ul>
+          {/*show places on list and map with isShow true*/}
+          {this.state.markers.filter(marker => (marker.isShow === true)).map(marker=>{
+            return <li key={marker.id}>{marker.name}</li>
           })}
-          
+          </ul>
           </nav>
           <section className="App-map">
             <Map
+              {...this.state}
               places={this.state.places}
+              openInfoWindow={this.openInfoWindow}
+              markers={this.state.markers}
             />
           </section>
         </main>
