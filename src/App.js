@@ -37,7 +37,6 @@ class App extends Component {
 updateSearch(event){
   this.setState({searchQuery: event.target.value.substr(0,20)});
   console.log(this.state.searchQuery);
-  
 }
 
 
@@ -115,7 +114,7 @@ updateSearch(event){
           {/*show places on list and map with isShow true*/}
           {/* */}
           {filteredMarkers.filter(marker => (marker.isShow === true)).map(marker=>{
-            return <li key={marker.id}>{marker.name}</li>
+            return <li key={marker.id}><button onClick={() => this.openInfoWindow(marker)}>{marker.name}</button></li>
           })}
           </ul>
           </nav>
