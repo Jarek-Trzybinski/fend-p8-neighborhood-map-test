@@ -12,18 +12,33 @@ class App extends Component {
     /* ustawic w marker.isShow& i co ma robic dla pokazanych markerow
     i marker.isOpen && jezeli chcemy zeby po kliknieciu bylo wyswietlna
     funcja on click zeby zmienic stane isOpen z false na true*/
-    markers: []
+    markers: [],
+    searchQuery: ''
   };
   
   }
  
 
   openInfoWindow = (marker)=> {
+    // close all infowindow's markers
+    this.state.markers.map(marker => {
+      marker.isOpen = false;
+      this.setState({markers: Object.assign(this.state.markers, marker)})
+    }
+      
+    )
+    //open infowindow on click marker
     marker.isOpen = true;
     this.setState({markers: Object.assign(this.state.markers, marker)})
 
 }
 
+// this function update state.searchQuery when user is typing inside input
+updateSearch(event){
+  this.setState({searchQuery: event.target.value.substr(0,20)});
+  console.log(this.state.searchQuery);
+  
+}
 
 
 
@@ -74,6 +89,12 @@ class App extends Component {
 
       
   render() {
+    let filteredMarkers = this.state.markers.filter(
+      (marker) => {
+        
+        return marker.name.toLowerCase().indexOf(this.state.searchQuery.toLowerCase()) !== -1;
+      }
+    );
     return (
       
       <div className="App">
@@ -83,11 +104,17 @@ class App extends Component {
 
         <main className="Main">
           <nav className="App-nav">
+          Search:
+          <input type="text"
+            value={this.state.search}
+            onChange={this.updateSearch.bind(this)}
+          />
           
           List of Places:
           <ul>
           {/*show places on list and map with isShow true*/}
-          {this.state.markers.filter(marker => (marker.isShow === true)).map(marker=>{
+          {/* */}
+          {filteredMarkers.filter(marker => (marker.isShow === true)).map(marker=>{
             return <li key={marker.id}>{marker.name}</li>
           })}
           </ul>
@@ -97,7 +124,7 @@ class App extends Component {
               {...this.state}
               places={this.state.places}
               openInfoWindow={this.openInfoWindow}
-              markers={this.state.markers}
+              markers={filteredMarkers}
             />
           </section>
         </main>
