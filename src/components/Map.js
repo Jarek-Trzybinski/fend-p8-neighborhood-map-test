@@ -18,7 +18,18 @@ class Map extends Component {
 
       {this.props.markers && this.props.markers.map((marker,index) => (
         <Marker key={index} position={{lat: marker.lat, lng: marker.lng}} onClick={() => this.props.openInfoWindow(marker)} >
-          {marker.isOpen && <InfoWindow key={marker.id}><div><p>{marker.name}</p><p>Address:</p><p>{marker.address}</p></div></InfoWindow>}
+          {marker.isOpen && 
+            <InfoWindow key={marker.id}>
+              <div className="info-window">
+                <p><b>{marker.name}</b></p>
+                <p></p>
+                <p>Address:</p>
+                <p>{marker.address}</p>
+                <p>{marker.city}</p>
+                <p>{marker.postalCode}</p>
+
+              </div>
+            </InfoWindow>}
         </Marker>
      ))}
 

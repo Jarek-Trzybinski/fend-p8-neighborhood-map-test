@@ -43,7 +43,7 @@ updateSearch(event){
 
   componentDidMount() {
     this.getPlaces();
-    
+
   }
 
   // code base on code from https://developer.foursquare.com/docs/api
@@ -69,6 +69,8 @@ updateSearch(event){
             lat: marker.venue.location.lat,
             lng: marker.venue.location.lng,
             address: marker.venue.location.address,
+            postalCode: marker.venue.location.postalCode,
+            city: marker.venue.location.city,
             isShow: true,
             isOpen: false
           }
@@ -110,11 +112,11 @@ updateSearch(event){
           />
           
           List of Places:
-          <ul>
+          <ul className="button-list">
           {/*show places on list and map with isShow true*/}
           {/* */}
           {filteredMarkers.filter(marker => (marker.isShow === true)).map(marker=>{
-            return <li key={marker.id}><button onClick={() => this.openInfoWindow(marker)}>{marker.name}</button></li>
+            return <li key={marker.id}><button onClick={() => this.openInfoWindow(marker)}><b>{marker.name}</b></button></li>
           })}
           </ul>
           </nav>
