@@ -23,13 +23,22 @@ class App extends Component {
     // close all infowindow's markers
     this.state.markers.map(marker => {
       marker.isOpen = false;
-      this.setState({markers: Object.assign(this.state.markers, marker)})
+      // set all marker animation to null
+      marker.isBounce = false;
+      this.setState({markers: Object.assign(this.state.markers, marker)});
+
+      
+      
     }
       
     )
     //open infowindow on click marker
+    // ? how to set animation to bounce
     marker.isOpen = true;
-    this.setState({markers: Object.assign(this.state.markers, marker)})
+    // change marker animation to true
+    marker.isBounce = true;
+    this.setState({markers: Object.assign(this.state.markers, marker)});
+    
 
 }
 
@@ -72,7 +81,8 @@ updateSearch(event){
             postalCode: marker.venue.location.postalCode,
             city: marker.venue.location.city,
             isShow: true,
-            isOpen: false
+            isOpen: false,
+            isBounce: false
           }
         })
         this.setState({places, markers});
@@ -100,18 +110,19 @@ updateSearch(event){
       
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to Edinburgh</h1>
+          <h1 className="App-title">Explore Edinburgh APP</h1>
         </header>
 
         <main className="Main">
           <nav className="App-nav">
-          Search:
+          
           <input type="text"
             value={this.state.search}
             onChange={this.updateSearch.bind(this)}
+            placeholder="filter places"
           />
           
-          List of Places:
+          
           <ul className="button-list">
           {/*show places on list and map with isShow true*/}
           {/* */}
@@ -130,7 +141,7 @@ updateSearch(event){
           </section>
         </main>
         
-        <footer className="App-footer">this is part of Nanodegree Project</footer>
+        <footer className="App-footer">FEND Project 8 Neighborhood Map</footer>
         
       </div>
     );
