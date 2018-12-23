@@ -116,7 +116,7 @@ updateSearch(event){
         <main className="Main">
           <nav className="App-nav">
           
-          <input type="text"
+          <input type="text" className="Input"
             value={this.state.search}
             onChange={this.updateSearch.bind(this)}
             placeholder="filter places"

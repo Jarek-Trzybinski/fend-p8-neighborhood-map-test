@@ -17,7 +17,12 @@ class Map extends Component {
       >
 
       {this.props.markers && this.props.markers.map((marker,index) => (
-        <Marker animation={marker.isBounce ? window.google.maps.Animation.BOUNCE : null} key={index} position={{lat: marker.lat, lng: marker.lng}} onClick={() => this.props.openInfoWindow(marker)}  >
+        <Marker 
+          // if state.isBounce is set to to true marker will start bouncing
+          animation={marker.isBounce ? window.google.maps.Animation.BOUNCE : null}
+          key={index} position={{lat: marker.lat, lng: marker.lng}}
+          onClick={() => this.props.openInfoWindow(marker)} 
+        >
           {marker.isOpen && 
             
             <InfoWindow key={marker.id}>

@@ -12,7 +12,7 @@
   background-color: black;
 	color: white;
 	padding: 1em;
-	height: 10vh;
+	height: 13vh;
 	text-align: center;
 }
 
@@ -24,14 +24,17 @@
 }
 
 .Main > nav {
+	display: flex;
 	flex: 0 0 30vw;  
   background-color: #333333;
 	color: white;
 	order: -1;
-	text-align: left;
+	flex-direction: column;
+	justify-items: center;
 	
   
 }
+
 ul{
 	list-style: none;
 }
