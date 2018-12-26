@@ -1,4 +1,4 @@
-.App {
+.app {
   display: flex;
   flex-direction: column;
   background-color: #282c34;
@@ -8,7 +8,7 @@
   background-color: green;
 }
 
-.App-header {
+.header {
   background-color: black;
 	color: white;
 	padding: 1em;
@@ -16,45 +16,24 @@
 	text-align: center;
 }
 
-
-.Main {
+.main {
   display: flex;
 	color: white;
 	background: #333333;
 }
 
-.Main > nav {
+.nav {
 	display: flex;
 	flex: 0 0 30vw;  
   background-color: #333333;
 	color: white;
 	order: -1;
 	flex-direction: column;
-	justify-items: center;
-	
-  
+	justify-items: center;  
 }
 
-ul{
+.button-list {
 	list-style: none;
-}
-
-.App-map {
-	flex: 1;
-	
-  
-}
-.info-window {
-	color: black;
-	background-color: white;
-}
-
-.App-footer {
-  background-color: black;;
-	color: white;
-	padding: 1em;
-	height: 5vh;
-	text-align: center;
 }
 
 .map-container {
@@ -64,14 +43,31 @@ ul{
 	background-color: black;
 }
 
+.map {
+	flex: 1;
+}
+
+.info-window {
+	color: black;
+	background-color: white;
+}
+
+.footer {
+  background-color: black;;
+	color: white;
+	padding: 1em;
+	height: 5vh;
+	text-align: center;
+}
+
 @media screen and (max-width: 575px) {
-  .Main {
+  .main {
 		display: block;
 	}
-	ul {
+
+	.button-list {
 		display: flex;
 		flex-flow: row wrap;		
 	}
-	
 }
 

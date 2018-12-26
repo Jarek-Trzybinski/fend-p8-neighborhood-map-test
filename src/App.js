@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Map from './components/Map.js'
+import Navigation from './components/Navigation.js'
+
 class App extends Component {
   constructor(){
     super();
 
-  this.state = {
-    places: [], //foursquere places
-    //marker: name, id, location, isShow:false, isOpen:true
-    /* ustawic w marker.isShow& i co ma robic dla pokazanych markerow
-    i marker.isOpen && jezeli chcemy zeby po kliknieciu bylo wyswietlna
-    funcja on click zeby zmienic stane isOpen z false na true*/
-    markers: [],
-    searchQuery: ''
-  };
-  
+    this.state = {
+      places: [], //foursquere places
+      markers: [],
+      searchQuery: ''
+    };
   }
  
-
   openInfoWindow = (marker)=> {
     // close all infowindow's markers
     this.state.markers.map(marker => {
@@ -26,52 +21,41 @@ class App extends Component {
       // set all marker animation to null
       marker.isBounce = false;
       this.setState({markers: Object.assign(this.state.markers, marker)});
+    })
 
-      
-      
-    }
-      
-    )
     //open infowindow on click marker
-    // ? how to set animation to bounce
     marker.isOpen = true;
-    // change marker animation to true
+    // make click marker bounce
     marker.isBounce = true;
     this.setState({markers: Object.assign(this.state.markers, marker)});
-    
+  }
 
-}
-
-// this function update state.searchQuery when user is typing inside input
-updateSearch(event){
-  this.setState({searchQuery: event.target.value.substr(0,20)});
-  console.log(this.state.searchQuery);
-}
-
-
+  // this function update state.searchQuery when user is typing inside input
+  updateSearch(event){
+    this.setState({searchQuery: event.target.value.substr(0,20)});
+    console.log("[This.state.searchQuery]:", this.state.searchQuery);
+  }
 
   componentDidMount() {
     this.getPlaces();
-
   }
 
   // code base on code from https://developer.foursquare.com/docs/api
   getPlaces = () => {
-    // get 20 places from Edinburghls
+    // get 20 places from Edinburgh
     fetch('https://api.foursquare.com/v2/venues/explore?client_id=OGJ2WWKTOHB0PARLTNR4WTUBLSETYALE10WNXGTL33P2BNAW&client_secret=4LB1EELLF4CDIOSBLJMALSBORN0XAGO22CXYTH0KFJES3UTF&v=20180323&limit=20&near=Edinburgh&query=top+picks')
     .then(
       // save as json format
       resp => resp.json()
     )
     .then((data) => {
-        
         console.log(data);
         // pass data into state
         
         console.log('this.state.places:',this.state.places)
         const places = data.response.groups[0].items;
 
-        const markers = data.response.groups[0].items.map( marker => {
+        const markers = places.map( marker => {
           return {
             id: marker.venue.id,
             name: marker.venue.name,
@@ -86,54 +70,33 @@ updateSearch(event){
           }
         })
         this.setState({places, markers});
-
-        
-
-
     }).catch(
       err => console.log('Error', err)
-    );
-    
-    
-      }
-
-
-      
+    );   
+  }
+     
   render() {
+    // create array of filtered arrays of markers
     let filteredMarkers = this.state.markers.filter(
-      (marker) => {
-        
+      (marker) => {        
         return marker.name.toLowerCase().indexOf(this.state.searchQuery.toLowerCase()) !== -1;
       }
     );
     return (
-      
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Explore Edinburgh APP</h1>
+      <div className="app">
+        <header className="header">
+          <h1 className="app-title">Explore Edinburgh APP</h1>
         </header>
 
-        <main className="Main">
-          <nav className="App-nav">
-          
-          <input type="text" className="Input"
-            value={this.state.search}
-            onChange={this.updateSearch.bind(this)}
-            placeholder="filter places"
-          />
-          
-          
-          <ul className="button-list">
-          {/*show places on list and map with isShow true*/}
-          {/* */}
-          {filteredMarkers.filter(marker => (marker.isShow === true)).map(marker=>{
-            return <li key={marker.id}><button onClick={() => this.openInfoWindow(marker)}><b>{marker.name}</b></button></li>
-          })}
-          </ul>
-          </nav>
-          <section className="App-map">
+        <main className="main">
+        <Navigation 
+        markers={filteredMarkers}
+        searchQuery={this.state.searchQuery}
+        updateSearch={this.updateSearch.bind(this)}
+        openInfoWindow={this.openInfoWindow}
+        />
+          <section className="map">
             <Map
-              {...this.state}
               places={this.state.places}
               openInfoWindow={this.openInfoWindow}
               markers={filteredMarkers}
@@ -141,7 +104,7 @@ updateSearch(event){
           </section>
         </main>
         
-        <footer className="App-footer">FEND Project 8 Neighborhood Map</footer>
+        <footer className="footer">FEND Project 8 Neighborhood Map by Jaroslaw Trzybinski</footer>
         
       </div>
     );
