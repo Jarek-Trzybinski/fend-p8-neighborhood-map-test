@@ -32,6 +32,16 @@
 	justify-items: center;  
 }
 
+input:focus {
+	color: white;
+	background-color: black;
+}
+
+button:focus {
+	color: white;
+	background-color: black;
+}
+
 .button-list {
 	list-style: none;
 }
