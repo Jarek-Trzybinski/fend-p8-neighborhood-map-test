@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Navigation extends Component {
     render() {
         return (
-            <nav className="nav">
+            <nav className="nav" role="navigation">
                 <input type="text" className="input" title="Filter Places"
                     value={this.props.searchQuery}
                     onChange={this.props.updateSearch}

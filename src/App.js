@@ -88,19 +88,32 @@ class App extends Component {
           <h1 className="app-title">Explore Edinburgh APP</h1>
         </header>
 
-        <main className="main">
-        <Navigation 
-        markers={filteredMarkers}
-        searchQuery={this.state.searchQuery}
-        updateSearch={this.updateSearch.bind(this)}
-        openInfoWindow={this.openInfoWindow}
-        />
-          <section className="map">
-            <Map
+        <main className="main" role="main">
+        { (navigator.onLine) && (
+          <Navigation 
+            markers={filteredMarkers}
+            searchQuery={this.state.searchQuery}
+            updateSearch={this.updateSearch.bind(this)}
+            openInfoWindow={this.openInfoWindow}
+          />
+        )}
+          <section className="map" role="application">
+            { (navigator.onLine) && (
+              <Map
               places={this.state.places}
               openInfoWindow={this.openInfoWindow}
               markers={filteredMarkers}
-            />
+              />
+              )
+            }
+            {
+              !(navigator.onLine) && (
+                <div>
+                  You're offline. 
+                </div>
+              )
+            }
+
           </section>
         </main>
         
