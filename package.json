@@ -8,7 +8,7 @@
     "react-google-maps": "^9.4.5",
     "react-scripts": "2.1.1"
   },
-  "homepage": "http://Jarek-Trzybinski.github.io/fend-p8-neighborhood-map-test"
+  "homepage": "http://Jarek-Trzybinski.github.io/fend-p8-neighborhood-map-test",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
