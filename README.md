@@ -49,15 +49,12 @@ All criteria I needed to apply:
 * There are at least 5 locations in the model. These may be hard-coded or retrieved from a data API,
 * There are no errors. There are no warnings that resulted from not following the best practices listed in the documentation, such as using key for list items. All code is functional and formatted properly.
 
+## Dependencies
 
+Service Workers works only in production build
 
-
-
-
-
-
-
-
+## Homepage
+http://Jarek-Trzybinski.github.io/fend-p8-neighborhood-map-test
 
 # Author
 Jarosław Trzybiński
