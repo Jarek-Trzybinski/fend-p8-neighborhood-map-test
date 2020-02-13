@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/fend-p8-neighborhood-map-test/precache-manifest.6be29574951859d8accede405c1f8efb.js"
+  "/fend-p8-neighborhood-map-test/precache-manifest.06cfbf2371b7ef6adbff71c52d9559d3.js"
 );
 
 workbox.clientsClaim();
@@ -30,5 +30,5 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerNavigationRoute("/fend-p8-neighborhood-map-test/index.html", {
   
-  blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
+  blacklist: [/^\/_/,/\/[^/]+\.[^/]+$/],
 });
